@@ -9,12 +9,12 @@ var fs = require("fs");
     await page.waitForSelector("div#metadata");
 
     var trending = await page.evaluate(() => {
-      var titleNodeList = document.querySelectorAll(`div#metadata`);
+      var titleNodeList = document.querySelectorAll(`a#video-title`);
       var titleLinkArray = [];
       for (var i = 0; i < titleNodeList.length; i++) {
         if (!titleNodeList[i]) continue;
         titleLinkArray[i] = {
-          title: titleNodeList[i].innerText.trim(),
+          title: titleNodeList[i].getAttribute("title"),
         };
       }
       return titleLinkArray;
