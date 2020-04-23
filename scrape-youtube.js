@@ -6,10 +6,10 @@ var fs = require("fs");
     var browser = await puppeteer.launch({ headless: false });
     var page = await browser.newPage();
     await page.goto(`https://www.youtube.com/feed/trending`);
-    await page.waitForSelector("div#meta");
+    await page.waitForSelector("div#metadata");
 
     var trending = await page.evaluate(() => {
-      var titleNodeList = document.querySelectorAll(`div#meta`);
+      var titleNodeList = document.querySelectorAll(`div#metadata`);
       var titleLinkArray = [];
       for (var i = 0; i < titleNodeList.length; i++) {
         if (!titleNodeList[i]) continue;
@@ -27,8 +27,9 @@ var fs = require("fs");
     });
     console.log(success("Browser Closed"));
   } catch (err) {
-    console.log(error(err));
+    console.log(err);
+    // console.log(error(err));
     await browser.close();
-    console.log(error("Browser Closed"));
+    // console.log(error("Browser Closed"));
   }
 })();
