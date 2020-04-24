@@ -20,19 +20,26 @@ fetch(url)
 
     fs.writeFile("youtube-api-data.json", JSON.stringify(data), function (err) {
       if (err) throw err;
-      console.log("Saved!");
+      console.log("Saved JSON file");
     });
 
     let obj = {};
     for (let i = 0; i < data["items"].length; i++) {
-      const snippet = data["items"][i]["snippet"];
-      obj[i + 1] = snippet.title;
+      const vid = data["items"][i];
+      obj[i + 1] = {
+        chanel: vid.snippet.channelTitle,
+        title: vid.snippet.title,
+        description: vid.snippet.description,
+        duration: vid.contentDetails.duration,
+        publishedAt: vid.snippet.publishedAt,
+        statistics: vid.snippet.statistics,
+      };
     }
 
     fs.writeFile("processed-youtube-data.json", JSON.stringify(obj), function (
       err
     ) {
       if (err) throw err;
-      console.log("Saved!");
+      console.log("Saved JSON file");
     });
   });
