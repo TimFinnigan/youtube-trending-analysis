@@ -1,7 +1,7 @@
 // Fetch data using YouTube API
 const fetch = require("node-fetch");
 const fs = require("fs");
-const config = require("./config.js");
+const config = require("../config.js");
 
 const youtubeKey = config.YOUTUBE_API_KEY;
 
