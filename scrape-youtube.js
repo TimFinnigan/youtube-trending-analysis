@@ -6,30 +6,29 @@ var fs = require("fs");
     var browser = await puppeteer.launch({ headless: false });
     var page = await browser.newPage();
     await page.goto(`https://www.youtube.com/feed/trending`);
-    await page.waitForSelector("div#metadata");
+    await page.waitForSelector("div#metadata-line");
 
     var trending = await page.evaluate(() => {
-      var titleNodeList = document.querySelectorAll(`a#video-title`);
+      var titleNodeList = document.querySelectorAll(`div#metadata-line`);
       var titleLinkArray = [];
       for (var i = 0; i < titleNodeList.length; i++) {
         if (!titleNodeList[i]) continue;
         titleLinkArray[i] = {
-          title: titleNodeList[i].getAttribute("title"),
+          title: titleNodeList[i].innerText.trim(),
         };
       }
       return titleLinkArray;
     });
     console.log(trending);
     await browser.close();
+    console.log("Browser Closed");
     fs.writeFile("youtube.json", JSON.stringify(trending), function (err) {
       if (err) throw err;
-      console.log("Saved!");
+      console.log("Saved JSON file");
     });
-    console.log(success("Browser Closed"));
   } catch (err) {
     console.log(err);
-    // console.log(error(err));
     await browser.close();
-    // console.log(error("Browser Closed"));
+    console.log("Browser Closed");
   }
 })();
