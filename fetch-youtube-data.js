@@ -32,7 +32,8 @@ fetch(url)
         description: vid.snippet.description,
         duration: vid.contentDetails.duration,
         publishedAt: vid.snippet.publishedAt,
-        statistics: vid.snippet.statistics,
+        category: vid.snippet.categoryId,
+        statistics: vid.statistics,
       };
     }
 
