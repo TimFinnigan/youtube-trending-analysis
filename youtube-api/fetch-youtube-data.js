@@ -27,7 +27,7 @@ fetch(url)
     for (let i = 0; i < data["items"].length; i++) {
       const vid = data["items"][i];
       obj[i + 1] = {
-        chanel: vid.snippet.channelTitle,
+        channel: vid.snippet.channelTitle,
         title: vid.snippet.title,
         description: vid.snippet.description,
         duration: vid.contentDetails.duration,
